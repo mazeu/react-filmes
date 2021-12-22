@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router";
 import api from "../../services/api";
+import { toast } from "react-toastify";
 
 export default function Filme() {
   const { id } = useParams();
@@ -16,7 +17,7 @@ export default function Filme() {
 
       if (response.data.length === 0) {
         //tentou acessar com um ID que nao existe, navega ele para outro local
-        history.replace("/");
+        history.replace('/');
         return;
       }
 
@@ -43,13 +44,13 @@ export default function Filme() {
     );
 
     if (hasFilme) {
-      alert("Voce ja salvou esse filme.");
+      toast.error("Voce ja salvou esse filme.");
       return;
     }
 
     filmesSalvos.push(filme);
     localStorage.setItem('filmes', JSON.stringify(filmesSalvos));
-    alert('Filme salvo com sucesso!');
+    toast.success('Filme salvo com sucesso!');
 
   }
 
